@@ -4,7 +4,7 @@
 <head>
 
 	<meta charset='UTF-8' />
-	<title>ytelefon | Yakuter Telefon Defteri</title>
+	<title>yPhoneBook</title>
 
 	<!-- META -->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,13 +18,16 @@
 	<meta name="author" content="Erhan YAKUT - http://www.yakuter.com" />
 	
 	<!-- CSS -->
-	<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
-	<link rel="stylesheet" href="assets/css/thickbox.css" type="text/css" media="screen" />
-	<link rel="shortcut icon" href="assets/images/favicon.gif" />
-
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="assets/css/custom.css" rel="stylesheet">
+	<!--<link href="assets/images/favicon.ico" rel="icon">-->
+	
 	<!-- JS -->
-	<script type="text/javascript" src="assets/js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="assets/js/yakuter.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/custom.js"></script>
 
 </head>
 <body>
@@ -45,101 +48,125 @@ error_reporting(E_ALL);
 ?>
 <!-- //DATABASE CONNECTION -->
 
-<div id="govde">
+<div class="container theme-showcase" role="main">
+  <div class="row rc">
+    <div class="col-md-6 cc">
+      
+      <div id="actions">
+        <button type="button" class="btn btn-sm btn-primary">List All</button>
+        <button type="button" class="btn btn-sm btn-success" id="show_new_form">New Contact</button>
+        <button type="button" class="btn btn-sm btn-info" id="show_search_form">Search</button>
+      </div>
+      
+      <div id="new_contact" class="forms">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title">New Contact</h3>
+          </div>
+          <div class="panel-body">
+            <form name="new-contact-form" method="post" action="index.php">
+          		<input type="text" name="name" id="name" placeholder="Name Surname">
+          		<input type="text" name="phone" id="phone" placeholder="Phone">
+          		<input type="text" name="email" id="email" placeholder="Email">
+          		<button type="submit" class="btn btn-sm btn-warning">Add</button>
+          	</form>
+          </div>
+        </div>
+      </div>
+      
+      <div id="search" class="forms">
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title">Search</h3>
+          </div>
+          <div class="panel-body">
+            <form name="new-contact-form" method="post" action="index.php">
+          		<input type="text" name="name" id="name" placeholder="Search">
+          		<button type="submit" class="btn btn-sm btn-warning">Search</button>
+          	</form>
+          </div>
+        </div>
+      </div>
+      
+      <div id="edit_contact" class="forms">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Edit Contact</h3>
+          </div>
+          <div class="panel-body">
+            <form name="new-contact-form" method="post" action="index.php">
+          		<input type="text" name="name" id="name" placeholder="Name Surname">
+          		<input type="text" name="phone" id="phone" placeholder="Phone">
+          		<input type="text" name="email" id="email" placeholder="Email">
+          		<button type="submit" class="btn btn-sm btn-warning">Update</button>
+          	</form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Contact List</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+                if (!isset($_GET['b'])) { $b=0; } else { $b = $_GET['b']; } 
+                if (isset($_POST['veri'])) {$kosul=" WHERE name LIKE '%".$_POST['veri']."%' OR phone LIKE '%".$_POST['veri']."%' OR email LIKE '%".$_POST['veri']."%'";}
+                else	{$kosul='';}
+                
+                $sql="SELECT * FROM $db_table $kosul ORDER BY name LIMIT $b, $limit";
+                $contacts = $db->get_results($sql);
 
-<!-- ÜST KISIM -->
-	<div id="enust">
-		<div class="menu">
-			<a href="index.php">Tümünü Listele</a> | 
-			<a href="javascript:new_contact();" title="Yeni Telefon">Yeni Kayıt</a> | 
-			<a href="javascript:search();">Arama</a> | 
-		</div>
-	</div>
+                if ($contacts!='') {
+              	  foreach ( $contacts as $contact )	{
+                ?>
+              		<tr id="<?php echo $contact->id; ?>">
+              			<td><?php echo $contact->id; ?></td>
+              			<td><?php echo $contact->name; ?></td>
+              			<td><?php echo $contact->phone; ?></td>
+              			<td><?php echo $contact->email; ?></td>
+              			<td>
+              			<a title="Düzenle" href="duzenle.php?no=<?php echo $contact->id; ?>&height=200&width=280" class="thickbox">
+              			<img src="assets/images/duzenle.gif" title="Düzenle"></a> 
+              			<a href="#" onclick="sil(<?php echo $contact->id;?>)"><img src="assets/images/sil.png" title="Sil"></a></td>
+              		</tr>
+                <?php
+              		}
+              	}
+              ?>		
+            </tbody>
+          </table>
+        </div>
+      </div>
+    
+      <!-- ALT KISIM -->
+      <footer class="rc">
+      	<a href="http://www.yakuter.com/yphonebook" title="yPhoneBook">yPhoneBook</a> &nbsp;|&nbsp;
+      	<a href="https://github.com/yakuter/yPhoneBook" title="GitHub">Github</a> &nbsp;|&nbsp;
+      	Telif Hakkı &copy; 2008 &nbsp;|&nbsp; 
+      	<a href="http://www.yakuter.com/">Author's Website</a>
+      </footer>
+    </div>
+  </div>
+</div> <!-- /container -->
 
-<!-- ARAMA FORMU -->
-<div id="arama">
-	<form name="arayacakform" method="post" action="index.php">
-		<fieldset style="border:1px solid #ffffff;padding-bottom:5px;">
-		<legend>Arama Kutusu</legend>
-			<input style="margin-left:10px;" class="tekkutu" type="text" id="veri" name="veri">
-			<input class="tus" type="submit" value="Ara...">
-			İsim veya telefon yazabilirsiniz...
-		</fieldset>
-	</form>
-</div>
 
-<!-- NEW CONTACT -->
-<div id="new-contact">
-	<form name="new-contact-form" method="post" action="index.php">
-		<legend>Arama Kutusu</legend>
-		<input type="text" name="name" id="name">
-		<input type="text" name="phone" id="phone">
-		<input type="text" name="email" id="email">
-		<input type="submit" value="Search...">
-	</form>
-</div>
-
-<!-- İÇERİK KISMI -->
-<div id="icerik">
-<?php if (!isset($_GET['b'])) { $b=0; } else { $b = $_GET['b']; } ?>	
-	<table style="margin-left:10px;width:540px;">
-		<tr>
-			<td class="isimcss" style="height:30px; background-color:#EEEEEE"><b>İsim</b></td>
-			<td class="numaracss"  style="background-color:#EEEEEE"><b>Cep Telefonu</b></td>
-			<td class="numaracss" style="background-color:#EEEEEE"><b>Ev Telefonu</b></td>
-			<td class="durumcss" style="background-color:#EEEEEE"><b>Durum</b></td>
-		</tr>
-<?php
-if (isset($_POST['veri'])) 
-	{
-		$kosul=" WHERE name LIKE '%".$_POST['veri']."%' OR phone LIKE '%".$_POST['veri']."%' OR email LIKE '%".$_POST['veri']."%'";	
-	}
-else
-	{
-		$kosul='';
-	}
-$sql="SELECT * FROM $db_table $kosul ORDER BY name LIMIT $b, $limit";
-$teller = $db->get_results($sql);
-$a=0;
-if ($teller!='') 
-	{
-	foreach ( $teller as $tel )
-		{
-		$a++;
-		if ($a % 2 ==0) { $still="class=\"satir\"";} else { $still=''; }
-?>
-		<tr <?php echo $still; ?> id="<?php echo $tel->id; ?>">
-			<td class="isimcss"><?php echo $tel->name; ?></td>
-			<td class="numaracss"><?php echo $tel->phone; ?></td>
-			<td class="numaracss"><?php echo $tel->email; ?></td>
-			<td class="durumcss">
-			<a title="Düzenle" href="duzenle.php?no=<?php echo $tel->no; ?>&height=200&width=280" class="thickbox">
-			<img src="assets/images/duzenle.gif" title="Düzenle"></a> 
-			<a href="#" onclick="sil(<?php echo $tel->no;?>)"><img src="assets/images/sil.png" title="Sil"></a></td>
-		</tr>
-<?php
-		}
-	}
-?>		
-	
-</table>
 
 <!-- SAYFALAMA -->
 <div style="padding:15px;">
-<?php sayfalama($site_url,$b,$limit,$db_table,$kosul); ?>
+<?php //sayfalama($site_url,$b,$limit,$db_table,$kosul); ?>
 </div>
 		
-</div><!-- içerik kısmı bitişi -->
-
-<!-- ALT KISIM -->
-<div id="alt">
-	<a href="bilgi.php?height=300&width=400" title="ytelefon | Yakuter Telefon Defteri" class="thickbox">Bilgi</a> &nbsp;|&nbsp;
-	<a href="http://www.yakuter.com/ytelefon-yakuter-telefon-defteri/">Yardım</a> &nbsp;|&nbsp;
-	Telif Hakkı &copy; 2008 &nbsp;|&nbsp; 
-	<a href="http://www.yakuter.com/">Yakuter</a>
-</div><!-- alt kısım bitişi -->
-		
-</div><!-- gövde bitişi -->
-
 </body>
 </html>

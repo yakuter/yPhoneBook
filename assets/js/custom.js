@@ -1,3 +1,15 @@
+$(document).ready(function(){
+    $("button#show_new_form").click(function(){
+        $("div#new_contact").slideToggle();
+    });
+    
+    $("button#show_search_form").click(function(){
+        $("div#search").slideToggle();
+    });
+    
+});
+
+
 function new_contact() {
 $("#new-contact").toggle("fast");
 }

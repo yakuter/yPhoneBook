@@ -1,4 +1,4 @@
-yPhoneBook
+yPhoneBook v1.0
 ========
 
 Example PHP project using modern technologies Bootstrap, jQuery, AJAX and ezSQL

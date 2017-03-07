@@ -1,3 +1,35 @@
+body {
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
+}
+
+.rc {
+    text-align:center;
+}
+.cc {
+    display:inline-block;
+    float:none;
+    text-align:left;
+}
+
+#actions {
+	margin-bottom: 10px;
+}
+.forms {
+	margin:5px 0px;
+}
+
+#new_contact, #search, #edit_contact{
+	display:none;
+}
+
+/*
 html { 
 	padding: 0; 
 	margin: 0;
@@ -93,3 +125,4 @@ img {border:0px; }
 form { padding: 0px; margin: 0px;}
 input { font-family: 'Verdana'; color: #282b31; font-size: 11px;}
 textarea { font-family: 'Verdana'; color: #282b31; font-size: 11px;}
+*/
