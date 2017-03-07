@@ -29,6 +29,13 @@ body {
 	display:none;
 }
 
+#new_contact .input-group {
+	width:140px;
+}
+.input-group {
+	margin-right: 5px;
+}
+
 /*
 html { 
 	padding: 0; 

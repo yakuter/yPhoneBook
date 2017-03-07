@@ -9,15 +9,6 @@ $(document).ready(function(){
     
 });
 
-
-function new_contact() {
-$("#new-contact").toggle("fast");
-}
-
-function arama_goster() {
-$("#arama").toggle("fast");
-}
-
 function sil( no )
 {
 	if( confirm('Kişiyi silmek istediğinizden emin misiniz?') ) {
@@ -63,20 +54,22 @@ $.ajax({
 }
 
 function ekle(){ 
-var sc = $("input[@type=text]").serialize();
-$('#ekleniyor').html('<center><img src="resimler/loadingAnimation.gif"></center>');
-$.ajax({
-	type: "POST",
-	url: "yeni2.php",
-	data: sc,
-	success: function(msg){
-	if (msg=="ok")
-		{
-		$('#ekleniyor').html("<font color='blue'>Kayıt Eklendi!</font>");
-		setTimeout("window.location = 'index.php';",1000);
-		}
-	else
-		{$('#ekleniyor').html( msg );}
-   }
-});
+	var sc = $("input[@type=text]").serialize();
+	alert(sc);
+	/*$('#ekleniyor').html('<center><img src="resimler/loadingAnimation.gif"></center>');
+	$.ajax({
+		type: "POST",
+		url: "yeni2.php",
+		data: sc,
+		success: function(msg){
+		if (msg=="ok")
+			{
+			$('#ekleniyor').html("<font color='blue'>Kayıt Eklendi!</font>");
+			setTimeout("window.location = 'index.php';",1000);
+			}
+		else
+			{$('#ekleniyor').html( msg );}
+	   }
+	});
+	*/
 }

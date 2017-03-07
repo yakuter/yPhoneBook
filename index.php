@@ -65,10 +65,16 @@ error_reporting(E_ALL);
           </div>
           <div class="panel-body">
             <form name="new-contact-form" method="post" action="index.php">
-          		<input type="text" name="name" id="name" placeholder="Name Surname">
-          		<input type="text" name="phone" id="phone" placeholder="Phone">
-          		<input type="text" name="email" id="email" placeholder="Email">
-          		<button type="submit" class="btn btn-sm btn-warning">Add</button>
+              <div class="input-group pull-left">
+                <input type="text" name="name" class="form-control" placeholder="Name Surname">
+              </div>
+              <div class="input-group pull-left">
+                <input type="text" name="phone" class="form-control" placeholder="Phone">
+              </div>
+              <div class="input-group pull-left">
+                <input type="text" name="email" class="form-control" placeholder="Email">
+              </div>
+              <button type="submit" class="btn btn-sm btn-warning pull-left">Add</button>
           	</form>
           </div>
         </div>
@@ -80,9 +86,11 @@ error_reporting(E_ALL);
             <h3 class="panel-title">Search</h3>
           </div>
           <div class="panel-body">
-            <form name="new-contact-form" method="post" action="index.php">
-          		<input type="text" name="name" id="name" placeholder="Search">
-          		<button type="submit" class="btn btn-sm btn-warning">Search</button>
+            <form name="search-form" method="post" action="index.php">
+          		<div class="input-group pull-left">
+                <input type="text" name="search" class="form-control" placeholder="Search">
+              </div>
+          		<button type="submit" class="btn btn-sm btn-warning pull-left">Search</button>
           	</form>
           </div>
         </div>
@@ -95,10 +103,16 @@ error_reporting(E_ALL);
           </div>
           <div class="panel-body">
             <form name="new-contact-form" method="post" action="index.php">
-          		<input type="text" name="name" id="name" placeholder="Name Surname">
-          		<input type="text" name="phone" id="phone" placeholder="Phone">
-          		<input type="text" name="email" id="email" placeholder="Email">
-          		<button type="submit" class="btn btn-sm btn-warning">Update</button>
+              <div class="input-group pull-left">
+                <input type="text" name="name" class="form-control" placeholder="Name Surname">
+              </div>
+              <div class="input-group pull-left">
+                <input type="text" name="phone" class="form-control" placeholder="Phone">
+              </div>
+              <div class="input-group pull-left">
+                <input type="text" name="email" class="form-control" placeholder="Email">
+              </div>
+              <button type="submit" class="btn btn-sm btn-warning pull-left">Update</button>
           	</form>
           </div>
         </div>
@@ -119,10 +133,10 @@ error_reporting(E_ALL);
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="result">
               <?php 
                 if (!isset($_GET['b'])) { $b=0; } else { $b = $_GET['b']; } 
-                if (isset($_POST['veri'])) {$kosul=" WHERE name LIKE '%".$_POST['veri']."%' OR phone LIKE '%".$_POST['veri']."%' OR email LIKE '%".$_POST['veri']."%'";}
+                if (isset($_POST['search'])) {$kosul=" WHERE name LIKE '%".$_POST['search']."%' OR phone LIKE '%".$_POST['search']."%' OR email LIKE '%".$_POST['search']."%'";}
                 else	{$kosul='';}
                 
                 $sql="SELECT * FROM $db_table $kosul ORDER BY name LIMIT $b, $limit";
