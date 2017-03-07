@@ -5,8 +5,6 @@ Example PHP project using modern technologies Bootstrap, jQuery, AJAX and ezSQL
 
 ## Structure
 * PHP
-* CSS/HTML
-* Javascript
 * MySQL
 * Bootstrap
 * jQuery
