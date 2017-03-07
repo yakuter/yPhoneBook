@@ -1,21 +1,22 @@
-Güncelleme
-yTelefon
+yPhoneBook
 ========
 
-yTelefon, PHP ve AJAX ile yazılmış bir telefon defteridir.
+Example PHP project using modern technologies Bootstrap, jQuery, AJAX and ezSQL
 
-## Altyapı
+## Structure
 * PHP
+* CSS/HTML
 * Javascript
 * MySQL
+* Bootstrap
+* jQuery
 * AJAX
-* CSS
+* ezSQL
 
-## Kullandığım hazır kütüphaneler:
-
-* jQuery (AJAX kütüphanesi)
-* ezSQL (Veritabanı sınıfı)
-* ThickBox (Bir Jquery eklentisi)
+## Libraries
+* Bootstrap
+* jQuery
+* ezSQL
 
 ## Yasal Kurallar
 yTelefon betiğini dilediğiniz gibi değiştirebilir, kullanabilir ve kaynak göstererek veya göstermeksizin dağıtabilirsiniz.
