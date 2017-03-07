@@ -1,3 +1,7 @@
+function new_contact() {
+$("#new-contact").toggle("fast");
+}
+
 function arama_goster() {
 $("#arama").toggle("fast");
 }

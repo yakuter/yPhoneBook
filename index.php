@@ -1,53 +1,82 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="tr-TR">
+
 <head>
-<title>ytelefon | Yakuter Telefon Defteri</title>
 
-<!-- META -->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="content-language" content="tr" />
-<meta http-equiv="imagetoolbar" content="no" />
-<meta name="description" content="Bu betik pratik ve sade bir telefon defteridir." />
-<meta name="keywords" content="yakuter,telefon,defter,betik,php,js,css" />
-<meta name="robots" content="all" />
-<meta name="language" content="tr-TR" />
-<meta name="location" content="türkiye, tr, turkey" />
-<meta name="author" content="Erhan YAKUT - http://www.yakuter.com" />
+	<meta charset='UTF-8' />
+	<title>ytelefon | Yakuter Telefon Defteri</title>
+
+	<!-- META -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-language" content="tr" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta name="description" content="Bu betik pratik ve sade bir telefon defteridir." />
+	<meta name="keywords" content="yakuter,telefon,defter,betik,php,js,css" />
+	<meta name="robots" content="all" />
+	<meta name="language" content="tr-TR" />
+	<meta name="location" content="türkiye, tr, turkey" />
+	<meta name="author" content="Erhan YAKUT - http://www.yakuter.com" />
 	
-<!-- CSS -->
-<link rel="stylesheet" href="css/style.css" type="text/css" />
-<link rel="stylesheet" href="css/thickbox.css" type="text/css" media="screen" />
-<link rel="shortcut icon" href="resimler/favicon.gif" />
+	<!-- CSS -->
+	<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+	<link rel="stylesheet" href="assets/css/thickbox.css" type="text/css" media="screen" />
+	<link rel="shortcut icon" href="assets/images/favicon.gif" />
 
-<!-- JS -->
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/thickbox.js"></script>
-<script type="text/javascript" src="js/yakuter.js"></script>
+	<!-- JS -->
+	<script type="text/javascript" src="assets/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="assets/js/yakuter.js"></script>
 
 </head>
 <body>
-<?php include ("fonksiyon.php"); ?>
+	
+<!-- DATABASE CONNECTION -->
+<?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+	include_once "includes/ez_sql_core.php";
+	include_once "includes/ez_sql_mysqli.php";
+	include_once "includes/config.php";
+	$db = new ezSQL_mysqli($db_user, $db_password, $db_name, $db_host);
+	$db->query("SET NAMES utf8"); 
+	
+?>
+<!-- //DATABASE CONNECTION -->
+
 <div id="govde">
 
 <!-- ÜST KISIM -->
 	<div id="enust">
 		<div class="menu">
 			<a href="index.php">Tümünü Listele</a> | 
-			<a href="yeni.php?height=200&width=280" title="Yeni Telefon" class="thickbox">Yeni Kayıt</a> | 
-			<a href="javascript:arama_goster();">Arama</a> | 
+			<a href="javascript:new_contact();" title="Yeni Telefon">Yeni Kayıt</a> | 
+			<a href="javascript:search();">Arama</a> | 
 		</div>
 	</div>
 
 <!-- ARAMA FORMU -->
 <div id="arama">
-<form name="arayacakform" method="post" action="index.php">
-	<fieldset style="border:1px solid #ffffff;padding-bottom:5px;">
-	<legend>Arama Kutusu</legend>
-		<input style="margin-left:10px;" class="tekkutu" type="text" id="veri" name="veri">
-		<input class="tus" type="submit" value="Ara...">
-		İsim veya telefon yazabilirsiniz...
-	</fieldset>
-</form>
+	<form name="arayacakform" method="post" action="index.php">
+		<fieldset style="border:1px solid #ffffff;padding-bottom:5px;">
+		<legend>Arama Kutusu</legend>
+			<input style="margin-left:10px;" class="tekkutu" type="text" id="veri" name="veri">
+			<input class="tus" type="submit" value="Ara...">
+			İsim veya telefon yazabilirsiniz...
+		</fieldset>
+	</form>
+</div>
+
+<!-- NEW CONTACT -->
+<div id="new-contact">
+	<form name="new-contact-form" method="post" action="index.php">
+		<legend>Arama Kutusu</legend>
+		<input type="text" name="name" id="name">
+		<input type="text" name="phone" id="phone">
+		<input type="text" name="email" id="email">
+		<input type="submit" value="Search...">
+	</form>
 </div>
 
 <!-- İÇERİK KISMI -->
@@ -63,14 +92,15 @@
 <?php
 if (isset($_POST['veri'])) 
 	{
-		$kosul=" WHERE isim LIKE '%".$_POST['veri']."%' OR cep LIKE '%".$_POST['veri']."%' OR ev LIKE '%".$_POST['veri']."%'";	
+		$kosul=" WHERE name LIKE '%".$_POST['veri']."%' OR phone LIKE '%".$_POST['veri']."%' OR email LIKE '%".$_POST['veri']."%'";	
 	}
 else
 	{
 		$kosul='';
 	}
-$sql="SELECT * FROM ".TABLO." $kosul ORDER BY isim LIMIT $b,".LIMIT;
+$sql="SELECT * FROM $db_table $kosul ORDER BY name LIMIT $b, $limit";
 $teller = $db->get_results($sql);
+$a=0;
 if ($teller!='') 
 	{
 	foreach ( $teller as $tel )
@@ -78,14 +108,14 @@ if ($teller!='')
 		$a++;
 		if ($a % 2 ==0) { $still="class=\"satir\"";} else { $still=''; }
 ?>
-		<tr <?php echo $still; ?> id="<?php echo $tel->no; ?>">
-			<td class="isimcss"><?php echo $tel->isim; ?></td>
-			<td class="numaracss"><?php echo $tel->cep; ?></td>
-			<td class="numaracss"><?php echo $tel->ev; ?></td>
+		<tr <?php echo $still; ?> id="<?php echo $tel->id; ?>">
+			<td class="isimcss"><?php echo $tel->name; ?></td>
+			<td class="numaracss"><?php echo $tel->phone; ?></td>
+			<td class="numaracss"><?php echo $tel->email; ?></td>
 			<td class="durumcss">
 			<a title="Düzenle" href="duzenle.php?no=<?php echo $tel->no; ?>&height=200&width=280" class="thickbox">
-			<img src="resimler/duzenle.gif" title="Düzenle"></a> 
-			<a href="#" onclick="sil(<?php echo $tel->no;?>)"><img src="resimler/sil.png" title="Sil"></a></td>
+			<img src="assets/images/duzenle.gif" title="Düzenle"></a> 
+			<a href="#" onclick="sil(<?php echo $tel->no;?>)"><img src="assets/images/sil.png" title="Sil"></a></td>
 		</tr>
 <?php
 		}
@@ -96,7 +126,7 @@ if ($teller!='')
 
 <!-- SAYFALAMA -->
 <div style="padding:15px;">
-<?php sayfalama(SITE,$b,LIMIT,TABLO,$kosul); ?>
+<?php sayfalama($site_url,$b,$limit,$db_table,$kosul); ?>
 </div>
 		
 </div><!-- içerik kısmı bitişi -->
@@ -110,5 +140,6 @@ if ($teller!='')
 </div><!-- alt kısım bitişi -->
 		
 </div><!-- gövde bitişi -->
+
 </body>
 </html>

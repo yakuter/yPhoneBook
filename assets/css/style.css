@@ -6,7 +6,7 @@ html {
 body { 
 	font-family: tahoma, verdana, arial, sans-serif;
 	font-size:%76;
-	background: url('../resimler/arka.jpg') repeat-x;
+	background: url('../images/arka.jpg') repeat-x;
 	font-size:12px;
 	color:#35383d;
 	text-align:center;
@@ -17,7 +17,7 @@ body {
 	margin: 0 auto; 	
 }
 #enust {
-	background: transparent url('../resimler/logo.jpg') no-repeat top right;
+	background: transparent url('../images/logo.jpg') no-repeat top right;
 	width:560px;
 	height:110px;	
 	padding-top:0px;
