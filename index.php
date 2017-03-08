@@ -25,7 +25,6 @@
 	
 	<!-- JS -->
 	<script src="assets/js/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
   <script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/custom.js"></script>
 
@@ -34,17 +33,11 @@
 	
 <!-- DATABASE CONNECTION -->
 <?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 	include_once "includes/ez_sql_core.php";
 	include_once "includes/ez_sql_mysqli.php";
 	include_once "includes/config.php";
 	$db = new ezSQL_mysqli($db_user, $db_password, $db_name, $db_host);
 	$db->query("SET NAMES utf8"); 
-	
 ?>
 <!-- //DATABASE CONNECTION -->
 
@@ -52,8 +45,11 @@ error_reporting(E_ALL);
   <div class="row rc">
     <div class="col-md-6 cc">
       
+      <div class="page-header">
+        <h1>yPhoneBook</h1>
+      </div>
       <div id="actions">
-        <button type="button" class="btn btn-sm btn-primary">List All</button>
+        <button type="button" class="btn btn-sm btn-primary" id="ListAll">List All</button>
         <button type="button" class="btn btn-sm btn-success" id="show_new_form">New Contact</button>
         <button type="button" class="btn btn-sm btn-info" id="show_search_form">Search</button>
       </div>
@@ -64,7 +60,7 @@ error_reporting(E_ALL);
             <h3 class="panel-title">New Contact</h3>
           </div>
           <div class="panel-body">
-            <form name="new-contact-form" method="post" action="index.php">
+            <form name="newContactForm" id="newContactForm" method="post">
               <div class="input-group pull-left">
                 <input type="text" name="name" class="form-control" placeholder="Name Surname">
               </div>
@@ -74,56 +70,39 @@ error_reporting(E_ALL);
               <div class="input-group pull-left">
                 <input type="text" name="email" class="form-control" placeholder="Email">
               </div>
-              <button type="submit" class="btn btn-sm btn-warning pull-left">Add</button>
+              <button type="button" class="btn btn-sm btn-warning pull-left" id="addButton">Add</button>
           	</form>
           </div>
         </div>
       </div>
       
-      <div id="search" class="forms">
+      <div id="searchBox" class="forms">
         <div class="panel panel-warning">
           <div class="panel-heading">
             <h3 class="panel-title">Search</h3>
           </div>
           <div class="panel-body">
-            <form name="search-form" method="post" action="index.php">
+            <form name="searchForm" id="searchForm" method="post">
           		<div class="input-group pull-left">
                 <input type="text" name="search" class="form-control" placeholder="Search">
               </div>
-          		<button type="submit" class="btn btn-sm btn-warning pull-left">Search</button>
+          		<button type="button" class="btn btn-sm btn-warning pull-left" id="searchButton">Search</button>
           	</form>
           </div>
         </div>
       </div>
       
       <div id="edit_contact" class="forms">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title">Edit Contact</h3>
-          </div>
-          <div class="panel-body">
-            <form name="new-contact-form" method="post" action="index.php">
-              <div class="input-group pull-left">
-                <input type="text" name="name" class="form-control" placeholder="Name Surname">
-              </div>
-              <div class="input-group pull-left">
-                <input type="text" name="phone" class="form-control" placeholder="Phone">
-              </div>
-              <div class="input-group pull-left">
-                <input type="text" name="email" class="form-control" placeholder="Email">
-              </div>
-              <button type="submit" class="btn btn-sm btn-warning pull-left">Update</button>
-          	</form>
-          </div>
-        </div>
+        
       </div>
       
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Contact List</h3>
         </div>
-        <div class="panel-body">
-          <table class="table">
+        <div class="panel-body" id="tableList">
+          <div id="loading"></div>
+          <table class="table" id="contactsTable">
             <thead>
               <tr>
                 <th>#</th>
@@ -133,13 +112,13 @@ error_reporting(E_ALL);
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody id="result">
+            <tbody>
               <?php 
                 if (!isset($_GET['b'])) { $b=0; } else { $b = $_GET['b']; } 
                 if (isset($_POST['search'])) {$kosul=" WHERE name LIKE '%".$_POST['search']."%' OR phone LIKE '%".$_POST['search']."%' OR email LIKE '%".$_POST['search']."%'";}
                 else	{$kosul='';}
                 
-                $sql="SELECT * FROM $db_table $kosul ORDER BY name LIMIT $b, $limit";
+                $sql="SELECT * FROM $db_table $kosul ORDER BY id DESC";
                 $contacts = $db->get_results($sql);
 
                 if ($contacts!='') {
@@ -151,9 +130,9 @@ error_reporting(E_ALL);
               			<td><?php echo $contact->phone; ?></td>
               			<td><?php echo $contact->email; ?></td>
               			<td>
-              			<a title="Düzenle" href="duzenle.php?no=<?php echo $contact->id; ?>&height=200&width=280" class="thickbox">
-              			<img src="assets/images/duzenle.gif" title="Düzenle"></a> 
-              			<a href="#" onclick="sil(<?php echo $contact->id;?>)"><img src="assets/images/sil.png" title="Sil"></a></td>
+            			    <button type="submit" value="<?php echo $contact->id;?>" class="btn btn-sm btn-warning pull-left editButton">Edit</button> 
+            			    <button type="submit" value="<?php echo $contact->id;?>" class="btn btn-sm btn-danger pull-left delButton">Delete</button>
+              			</td>
               		</tr>
                 <?php
               		}
@@ -164,23 +143,15 @@ error_reporting(E_ALL);
         </div>
       </div>
     
-      <!-- ALT KISIM -->
       <footer class="rc">
       	<a href="http://www.yakuter.com/yphonebook" title="yPhoneBook">yPhoneBook</a> &nbsp;|&nbsp;
       	<a href="https://github.com/yakuter/yPhoneBook" title="GitHub">Github</a> &nbsp;|&nbsp;
-      	Telif Hakkı &copy; 2008 &nbsp;|&nbsp; 
-      	<a href="http://www.yakuter.com/">Author's Website</a>
+      	Copyright &copy; 2017 &nbsp;|&nbsp; 
+      	<a href="http://www.yakuter.com/">Yakuter.com</a>
       </footer>
     </div>
   </div>
-</div> <!-- /container -->
-
-
-
-<!-- SAYFALAMA -->
-<div style="padding:15px;">
-<?php //sayfalama($site_url,$b,$limit,$db_table,$kosul); ?>
 </div>
-		
+
 </body>
 </html>
