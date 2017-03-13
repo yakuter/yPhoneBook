@@ -17,7 +17,7 @@ Example PHP project using modern technologies Bootstrap, jQuery, AJAX and ezSQL
 * ezSQL
 
 ## Screenshot
-![screenshot](https://raw.githubusercontent.com/yakuter/yPhoneBook/blob/master/assets/images/screenshot.png)
+![screenshot](https://github.com/yakuter/yPhoneBook/blob/master/assets/images/screenshot.png?raw=true)
 
 ## Legal Rules
 No rules. Just have fun.
