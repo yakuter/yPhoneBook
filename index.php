@@ -10,18 +10,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="content-language" content="tr" />
 	<meta http-equiv="imagetoolbar" content="no" />
-	<meta name="description" content="Bu betik pratik ve sade bir telefon defteridir." />
-	<meta name="keywords" content="yakuter,telefon,defter,betik,php,js,css" />
+	<meta name="description" content="Example PHP project using modern technologies Bootstrap, jQuery, AJAX and ezSQL" />
+	<meta name="keywords" content="yakuter,yPhoneBook,Ajax,PHP,MySQL,ezSQL" />
 	<meta name="robots" content="all" />
-	<meta name="language" content="tr-TR" />
-	<meta name="location" content="türkiye, tr, turkey" />
 	<meta name="author" content="Erhan YAKUT - http://www.yakuter.com" />
 	
 	<!-- CSS -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="assets/css/custom.css" rel="stylesheet">
-	<!--<link href="assets/images/favicon.ico" rel="icon">-->
 	
 	<!-- JS -->
 	<script src="assets/js/jquery.min.js"></script>
@@ -41,9 +38,9 @@
 ?>
 <!-- //DATABASE CONNECTION -->
 
-<div class="container theme-showcase" role="main">
+<div class="container" role="main">
   <div class="row rc">
-    <div class="col-md-6 cc">
+    <div class="col-md-8 cc">
       
       <div class="page-header">
         <h1>yPhoneBook</h1>
@@ -92,9 +89,7 @@
         </div>
       </div>
       
-      <div id="edit_contact" class="forms">
-        
-      </div>
+      <div id="edit_contact" class="forms"></div>
       
       <div class="panel panel-default">
         <div class="panel-heading">

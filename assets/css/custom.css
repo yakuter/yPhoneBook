@@ -1,17 +1,15 @@
-body {
-}
-
-.theme-showcase > p > .btn {
+.container > p > .btn {
   margin: 5px 0;
 }
 
-.theme-showcase .navbar .container {
+.navbar .container {
   width: auto;
 }
 
 .rc {
     text-align:center;
 }
+
 .cc {
     display:inline-block;
     float:none;
@@ -21,6 +19,7 @@ body {
 #actions {
 	margin-bottom: 10px;
 }
+
 .forms {
 	margin:5px 0px;
 }
@@ -32,9 +31,11 @@ body {
 #new_contact .input-group, #edit_contact .input-group {
 	width:140px;
 }
+
 .input-group {
 	margin-right: 5px;
 }
+
 .page-header {
 	height:60px;
 	background: url('../images/phonebook.png') center left no-repeat;
@@ -42,6 +43,7 @@ body {
 	padding-left: 75px;
 	border-style: none;
 }
+
 h1 {
 	display: block;
 	margin-top: 5px;
@@ -55,104 +57,7 @@ h1 {
 	height:60px;
     background: url('../images/loading.gif') 50% 50% no-repeat;
 }
+
 #contactsTable button{
 	margin-left:5px;
 }
-
-/*
-html { 
-	padding: 0; 
-	margin: 0;
-}
-
-body { 
-	font-family: tahoma, verdana, arial, sans-serif;
-	font-size:%76;
-	background: url('../images/arka.jpg') repeat-x;
-	font-size:12px;
-	color:#35383d;
-	text-align:center;
-}
-#govde {
-	width:570px;
-	text-align:left;
-	margin: 0 auto; 	
-}
-#enust {
-	background: transparent url('../images/logo.jpg') no-repeat top right;
-	width:560px;
-	height:110px;	
-	padding-top:0px;
-	padding-left:10px;
-}
-.menu {
-	width:560px;
-	height:20px;
-	padding-top:80px;
-	padding-left:-10px;
-}
-.menu a{
-	padding:5px;
-	color:black;
-	text-decoration:none;
-}
-.menu a:hover{
-	background-color:white;
-}
-#icerik {
-	width:570px;
-	height:400px;
-}
-#arama {
-	width:530px;
-	height:40px;
-	margin:15px;
-}
-#alt {
-	margin: 0 auto;
-	width:540px;
-	height:25px;
-	background-color: #EEEEEE;
-	text-align:center;
-	padding-top:5px;
-}
-
-.tekkutu {
-	margin-top:5px;
-	margin-bottom:5px;
-	width:180px;
-	height:18px;
-	border:1px solid #ababab;
-}
-.tus {
-	border:1px solid #e1e1e1;
-	background-color: #e1e1e1;
-	padding:2px;
-}
-.isimcss {
-	padding:2px;
-	padding-left:5px;
-	font-size:12px;
-	width:220px
-}
-.satir {
-	background-color: #fff7f1;
-}
-.numaracss {
-	padding:2px;	
-	padding-left:5px;
-	margin:0px;
-	font-size:12px;
-	width:135px
-}
-.durumcss {
-	padding:2px;
-	font-size:12px;
-	width:50px
-}
-
-img {border:0px; }
-form { padding: 0px; margin: 0px;}
-input { font-family: 'Verdana'; color: #282b31; font-size: 11px;}
-textarea { font-family: 'Verdana'; color: #282b31; font-size: 11px;}
-*/

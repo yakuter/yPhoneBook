@@ -14,7 +14,6 @@ $contact = $db->get_row("SELECT * FROM $db_table WHERE id='$_GET[id]'");
   </div>
   <div class="panel-body">
     <form name="editContactForm" id="editContactForm" method="post">
-      <input type="hidden" name="id" value="<?php echo $contact->id; ?>"/>
       <div class="input-group pull-left">
         <input type="text" name="name" class="form-control" placeholder="Name Surname" value="<?php echo $contact->name; ?>">
       </div>
@@ -24,6 +23,7 @@ $contact = $db->get_row("SELECT * FROM $db_table WHERE id='$_GET[id]'");
       <div class="input-group pull-left">
         <input type="text" name="email" class="form-control" placeholder="Email" value="<?php echo $contact->phone; ?>">
       </div>
+      <input type="hidden" name="id" value="<?php echo $contact->id; ?>"/>
       <button type="button" class="btn btn-sm btn-warning pull-left" id="updateButton">Update</button>
   	</form>
   </div>
