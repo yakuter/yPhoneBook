@@ -40,7 +40,7 @@
 
 <div class="container" role="main">
   <div class="row rc">
-    <div class="col-md-8 cc">
+    <div class="col-md-7 cc">
       
       <div class="page-header">
         <h1>yPhoneBook</h1>

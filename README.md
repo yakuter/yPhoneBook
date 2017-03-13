@@ -16,17 +16,19 @@ Example PHP project using modern technologies Bootstrap, jQuery, AJAX and ezSQL
 * jQuery
 * ezSQL
 
-## Yasal Kurallar
-yTelefon betiğini dilediğiniz gibi değiştirebilir, kullanabilir ve kaynak göstererek veya göstermeksizin dağıtabilirsiniz.
+## Screenshot
+![screenshot](https://raw.githubusercontent.com/yakuter/yPhoneBook/branch/assets/images/screenshot.png)
 
-## Uyarılar
-yTelefon “yerel sunucularda” kullanılmak üzere yazılmış basit ve sade bir betiktir. İnternet üzerinde kullanmak sakıncalıdır. Aykırı kullanım durumunda doğabilecek sorunlardan dolayı tüm mesuliyet kullanan kişiye aittir.
+## Legal Rules
+No rules. Just have fun.
 
-## Kurulum
-1. Paketten çıkan “ytelefon” klasörünü yerel sunucunuza yükleyin.
-1. Yeni bir veritabanı yaratın.
-2. veritabani.sql dosyasını yaratmış olduğunuz veritabanında çalıştırın.
-3. fonksiyon.php dosyasının en üst satırlarındaki ayarları kendinize göre düzenleyin.
-Hepsi bu kadar, kurulum tamamlanmıştır.
+## Warning
+yPhoneBook is suitable for local usage. Because there is no validation or security precaoutions, don't user this online.
 
-Adres: http://www.yakuter.com/ytelefon-yakuter-telefon-defteri/
+## Installation
+1. Download package on your computer (localhost)
+2. Create a new database and use db.sql file on database.
+3. Update includes/config.php file according to your server.
+That's all.
+
+Author's URL: http://www.yakuter.com/yPhoneBook/
