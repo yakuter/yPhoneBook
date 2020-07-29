@@ -22,7 +22,7 @@ $db->query("SET NAMES utf8");
     <tbody id="result">
 
 <?php
-if (isset($_POST[search])) {
+if (isset($_POST['search'])) {
 	$kosul="WHERE name LIKE '%".$_POST['search']."%' 
 	        OR phone LIKE '%".$_POST['search']."%' 
 	        OR email LIKE '%".$_POST['search']."%'";
